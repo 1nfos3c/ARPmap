@@ -9,6 +9,19 @@ import json
 import codecs
 import sys
 
+class tcolors:
+    OKBLUE =    '\033[94m'
+    OKGREEN =   '\033[92m'
+
+Colors = [
+    tcolors.OKBLUE,    # \033[94m
+    tcolors.OKGREEN    # \033[92m
+    ]
+
+def colorResult(ip, color):
+    # Gives the results a nice color!
+    return Colors[color] + ip + tcolors.OKBLUE
+
 #Url for finding MAC vendor
 url = "http://macvendors.co/api/"
 
@@ -37,10 +50,10 @@ def arpScan(ip):
 
 def printResult(result_list):
     #takes a list of clients and prints their info
-    print("[*] IP:\t\t\tMAC:\t\t\t\tVendor:\n-------------------------------------------------------------------------------------")
+    print(" IP:\t\t\tMAC:\t\t\t\tVendor:\n-------------------------------------------------------------------------------------")
     for client in result_list:
         vendor = findVendor(client["MAC"])
-        print(client["IP"] + "\t\t" + client["MAC"] +"\t\t" + vendor)
+        print(colorResult(client["IP"], 1) + "\t\t" + client["MAC"] +"\t\t" + vendor)
 
 def findVendor(mac_address):
     #finds the vendor of a device by its mac address
